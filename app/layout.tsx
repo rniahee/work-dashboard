@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { MSWProvider } from "./MSWProvider";
+import { QueryProvider } from "./QueryProvider";
 
 export const metadata: Metadata = {
   title: "LabelBoard",
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="ko" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
-        <MSWProvider>{children}</MSWProvider>
+        <MSWProvider>
+          <QueryProvider>{children}</QueryProvider>
+        </MSWProvider>
       </body>
     </html>
   );
