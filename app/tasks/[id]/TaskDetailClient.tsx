@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import type { Task, Worker, TaskType } from '@/mocks/data';
+import type { Task, Worker, TaskType } from '@/types/task';
 import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';

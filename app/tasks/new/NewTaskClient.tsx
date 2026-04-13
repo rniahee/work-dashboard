@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import type { Worker, TaskType, TaskStatus } from '@/mocks/data';
+import type { Worker, TaskType, TaskStatus } from '@/types/task';
 import { TYPE_LABELS } from '@/constants/task';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';

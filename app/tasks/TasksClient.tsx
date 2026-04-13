@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useState } from "react";
-import type { Task, Worker } from "@/mocks/data";
+import type { Task, Worker } from "@/types/task";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { STATUS_LABELS, TYPE_LABELS } from "@/constants/task";

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 export function MSWProvider({ children }: { children: React.ReactNode }) {
   const started = useRef(false);
@@ -9,9 +9,9 @@ export function MSWProvider({ children }: { children: React.ReactNode }) {
     if (started.current) return;
     started.current = true;
 
-    if (process.env.NODE_ENV === 'development') {
-      import('../mocks/browser').then(({ worker }) => {
-        worker.start({ onUnhandledRequest: 'bypass' });
+    if (process.env.NODE_ENV === "development") {
+      import("../../mocks/browser").then(({ worker }) => {
+        worker.start({ onUnhandledRequest: "bypass" });
       });
     }
   }, []);

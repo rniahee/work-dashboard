@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { MSWProvider } from "./MSWProvider";
-import { QueryProvider } from "./QueryProvider";
+import { MSWProvider } from "./providers/MSWProvider";
+import { QueryProvider } from "./providers/QueryProvider";
 
 export const metadata: Metadata = {
   title: "LabelBoard",

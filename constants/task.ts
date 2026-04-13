@@ -1,4 +1,4 @@
-import type { Task } from '@/mocks/data';
+import type { Task } from '@/types/task';
 
 export const STATUS_LABELS: Record<Task['status'], string> = {
   pending: '대기',
