@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import type { Stats } from '@/types/stats';
 import { StatCard } from '@/components/dashboard/StatCard';
+import { StatusDonutChart } from '@/components/dashboard/StatusDonutChart';
+import { WorkerBarChart } from '@/components/dashboard/WorkerBarChart';
 
 export function DashboardClient() {
   const { data: stats, isLoading } = useQuery<Stats>({
@@ -26,6 +28,11 @@ export function DashboardClient() {
         <StatCard label="진행중" value={stats.in_progress} color="text-blue-600" />
         <StatCard label="완료" value={stats.completed} color="text-green-600" />
         <StatCard label="반려" value={stats.rejected} color="text-red-600" />
+      </section>
+
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <StatusDonutChart stats={stats} />
+        <WorkerBarChart stats={stats} />
       </section>
     </main>
   );
