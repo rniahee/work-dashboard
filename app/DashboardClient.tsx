@@ -6,6 +6,7 @@ import type { Stats } from '@/types/stats';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { StatusDonutChart } from '@/components/dashboard/StatusDonutChart';
 import { WorkerBarChart } from '@/components/dashboard/WorkerBarChart';
+import { RecentTaskList } from '@/components/dashboard/RecentTaskList';
 
 export function DashboardClient() {
   const { data: stats, isLoading } = useQuery<Stats>({
@@ -34,6 +35,8 @@ export function DashboardClient() {
         <StatusDonutChart stats={stats} />
         <WorkerBarChart stats={stats} />
       </section>
+
+      <RecentTaskList />
     </main>
   );
 }
