@@ -3,10 +3,10 @@
 import { useQuery } from '@tanstack/react-query';
 
 import type { Stats } from '@/types/stats';
-import { StatCard } from '@/components/dashboard/StatCard';
-import { StatusDonutChart } from '@/components/dashboard/StatusDonutChart';
-import { WorkerBarChart } from '@/components/dashboard/WorkerBarChart';
-import { RecentTaskList } from '@/components/dashboard/RecentTaskList';
+import { StatCard } from './_components/StatCard';
+import { StatusDonutChart } from './_components/StatusDonutChart';
+import { WorkerBarChart } from './_components/WorkerBarChart';
+import { RecentTaskList } from './_components/RecentTaskList';
 
 export function DashboardClient() {
   const { data: stats, isLoading } = useQuery<Stats>({
