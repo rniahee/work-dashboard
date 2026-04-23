@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+
 import "./globals.css";
+import { LayoutShell } from "@/components/layout/LayoutShell";
 import { MSWProvider } from "./providers/MSWProvider";
 import { QueryProvider } from "./providers/QueryProvider";
-import { Sidebar } from "@/components/layout/Sidebar";
+
 
 export const metadata: Metadata = {
   title: "LabelBoard",
@@ -16,12 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="h-full antialiased">
-      <body className="h-full flex">
+      <body className="h-full flex flex-col">
         <MSWProvider>
           <QueryProvider>
-            <Sidebar />
-
-            <div className="flex-1 overflow-auto">{children}</div>
+            <LayoutShell>{children}</LayoutShell>
           </QueryProvider>
         </MSWProvider>
       </body>
