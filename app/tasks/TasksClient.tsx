@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
 
-import type { Task, Worker } from "@/types/task";
 import { STATUS_LABELS, TYPE_LABELS } from "@/constants/task";
+import { useTasksQuery } from "@/hooks/useTasksQuery";
+import { useWorkersQuery } from "@/hooks/useWorkersQuery";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 
@@ -14,25 +14,8 @@ export function TasksClient() {
   const [workerId, setWorkerId] = useState<string>("");
   const [query, setQuery] = useState<string>("");
 
-  const { data: tasks = [], isLoading: tasksLoading } = useQuery<Task[]>({
-    queryKey: ["tasks", { status, workerId, query }],
-    queryFn: async () => {
-      const params = new URLSearchParams();
-      if (status) params.set("status", status);
-      if (workerId) params.set("workerId", workerId);
-      if (query) params.set("query", query);
-      const res = await fetch(`/api/tasks?${params}`);
-      return res.json();
-    },
-  });
-
-  const { data: workers = [] } = useQuery<Worker[]>({
-    queryKey: ["workers"],
-    queryFn: async () => {
-      const res = await fetch("/api/workers");
-      return res.json();
-    },
-  });
+  const { data: tasks = [], isLoading: tasksLoading } = useTasksQuery({ status, workerId, query });
+  const { data: workers = [] } = useWorkersQuery();
 
   return (
     <main className="p-6 space-y-4">

@@ -1,21 +1,13 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-
-import type { Stats } from '@/types/stats';
+import { useStatsQuery } from '@/hooks/useStatsQuery';
 import { StatCard } from './_components/StatCard';
 import { StatusDonutChart } from './_components/StatusDonutChart';
 import { WorkerBarChart } from './_components/WorkerBarChart';
 import { RecentTaskList } from './_components/RecentTaskList';
 
 export function DashboardClient() {
-  const { data: stats, isLoading } = useQuery<Stats>({
-    queryKey: ['stats'],
-    queryFn: async () => {
-      const res = await fetch('/api/stats');
-      return res.json();
-    },
-  });
+  const { data: stats, isLoading } = useStatsQuery();
 
   if (isLoading) return <p className="p-6 text-sm text-gray-500">불러오는 중...</p>;
   if (!stats) return null;

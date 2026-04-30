@@ -1,11 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
-import type { Worker, TaskType, TaskStatus } from '@/types/task';
+import type { TaskType, TaskStatus } from '@/types/task';
 import { TYPE_LABELS } from '@/constants/task';
+import { useWorkersQuery } from '@/hooks/useWorkersQuery';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
@@ -27,13 +28,7 @@ export function NewTaskClient() {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { data: workers = [] } = useQuery<Worker[]>({
-    queryKey: ['workers'],
-    queryFn: async () => {
-      const res = await fetch('/api/workers');
-      return res.json();
-    },
-  });
+  const { data: workers = [] } = useWorkersQuery();
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormValues) => {

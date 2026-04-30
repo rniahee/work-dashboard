@@ -2,10 +2,12 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
-import type { Task, Worker, TaskType } from '@/types/task';
+import type { Task, TaskType } from '@/types/task';
+import { useTaskQuery } from '@/hooks/useTaskQuery';
+import { useWorkersQuery } from '@/hooks/useWorkersQuery';
 import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -23,22 +25,8 @@ export function TaskDetailClient({ id }: { id: string }) {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { data: task, isLoading } = useQuery<Task>({
-    queryKey: ['tasks', id],
-    queryFn: async () => {
-      const res = await fetch(`/api/tasks/${id}`);
-      if (!res.ok) throw new Error('Not Found');
-      return res.json();
-    },
-  });
-
-  const { data: workers = [] } = useQuery<Worker[]>({
-    queryKey: ['workers'],
-    queryFn: async () => {
-      const res = await fetch('/api/workers');
-      return res.json();
-    },
-  });
+  const { data: task, isLoading } = useTaskQuery(id);
+  const { data: workers = [] } = useWorkersQuery();
 
   const {
     register,

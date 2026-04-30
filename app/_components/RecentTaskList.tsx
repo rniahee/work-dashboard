@@ -1,27 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
 
-import type { Task, Worker } from '@/types/task';
 import { STATUS_LABELS } from '@/constants/task';
+import { useTasksQuery } from '@/hooks/useTasksQuery';
+import { useWorkersQuery } from '@/hooks/useWorkersQuery';
 
 export function RecentTaskList() {
-  const { data: tasks = [] } = useQuery<Task[]>({
-    queryKey: ['tasks'],
-    queryFn: async () => {
-      const res = await fetch('/api/tasks');
-      return res.json();
-    },
-  });
-
-  const { data: workers = [] } = useQuery<Worker[]>({
-    queryKey: ['workers'],
-    queryFn: async () => {
-      const res = await fetch('/api/workers');
-      return res.json();
-    },
-  });
+  const { data: tasks = [] } = useTasksQuery();
+  const { data: workers = [] } = useWorkersQuery();
 
   const recentTasks = [...tasks]
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
