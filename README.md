@@ -82,6 +82,42 @@ npm run dev
 
 [http://localhost:3000](http://localhost:3000) 에서 확인할 수 있습니다.
 
+## 테스트
+
+Vitest + Testing Library 기반으로 테스트를 작성했습니다.
+
+```bash
+# watch 모드
+yarn test
+
+# 단일 실행
+yarn test:run
+```
+
+### 테스트 범위
+
+| 대상 | 파일 |
+|------|------|
+| 상수 | `constants/task.ts` |
+| UI 컴포넌트 | `Button`, `Input`, `Select`, `StatCard` |
+| 페이지 컴포넌트 | `TasksClient`, `WorkersClient` |
+
+```
+__tests__/
+├── helpers/
+│   └── renderWithProviders.tsx  # QueryClient 래퍼 헬퍼
+├── constants/
+│   └── task.test.ts
+└── components/
+    ├── ui/
+    │   ├── Button.test.tsx
+    │   ├── Input.test.tsx
+    │   └── Select.test.tsx
+    ├── StatCard.test.tsx
+    ├── TasksClient.test.tsx
+    └── WorkersClient.test.tsx
+```
+
 ## Mock API
 
 MSW를 사용해 개발 환경에서 API를 모킹합니다.
