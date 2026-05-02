@@ -75,8 +75,9 @@ export function TaskDetailClient({ id }: { id: string }) {
 
       <form onSubmit={handleSubmit((data) => updateTask(data))} className="space-y-4">
         <div className="space-y-1">
-          <label className="text-sm font-medium">작업명</label>
+          <label htmlFor="title" className="text-sm font-medium">작업명</label>
           <Input
+            id="title"
             className="w-full"
             {...register('title', { required: '작업명을 입력해주세요' })}
           />
@@ -84,8 +85,9 @@ export function TaskDetailClient({ id }: { id: string }) {
         </div>
 
         <div className="space-y-1">
-          <label className="text-sm font-medium">작업 유형</label>
+          <label htmlFor="type" className="text-sm font-medium">작업 유형</label>
           <Select
+            id="type"
             className="w-full"
             options={Object.entries(TYPE_LABELS).map(([value, label]) => ({ value, label }))}
             {...register('type', { required: '작업 유형을 선택해주세요' })}
@@ -94,8 +96,9 @@ export function TaskDetailClient({ id }: { id: string }) {
         </div>
 
         <div className="space-y-1">
-          <label className="text-sm font-medium">담당 작업자</label>
+          <label htmlFor="workerId" className="text-sm font-medium">담당 작업자</label>
           <Select
+            id="workerId"
             className="w-full"
             options={workers.map((w) => ({ value: w.id, label: w.name }))}
             {...register('workerId', { required: '담당 작업자를 선택해주세요' })}
@@ -104,8 +107,9 @@ export function TaskDetailClient({ id }: { id: string }) {
         </div>
 
         <div className="space-y-1">
-          <label className="text-sm font-medium">상태</label>
+          <label htmlFor="status" className="text-sm font-medium">상태</label>
           <Select
+            id="status"
             className="w-full"
             options={Object.entries(STATUS_LABELS).map(([value, label]) => ({ value, label }))}
             {...register('status', { required: '상태를 선택해주세요' })}
@@ -114,8 +118,9 @@ export function TaskDetailClient({ id }: { id: string }) {
         </div>
 
         <div className="space-y-1">
-          <label className="text-sm font-medium">마감일</label>
+          <label htmlFor="dueDate" className="text-sm font-medium">마감일</label>
           <Input
+            id="dueDate"
             type="date"
             className="w-full"
             {...register('dueDate', { required: '마감일을 선택해주세요' })}

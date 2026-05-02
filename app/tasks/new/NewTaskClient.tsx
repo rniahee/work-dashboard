@@ -56,8 +56,9 @@ export function NewTaskClient() {
 
       <form onSubmit={handleSubmit((data) => mutate(data))} className="space-y-4">
         <div className="space-y-1">
-          <label className="text-sm font-medium">작업명</label>
+          <label htmlFor="title" className="text-sm font-medium">작업명</label>
           <Input
+            id="title"
             className="w-full"
             placeholder="작업명을 입력하세요"
             {...register('title', { required: '작업명을 입력해주세요' })}
@@ -66,8 +67,9 @@ export function NewTaskClient() {
         </div>
 
         <div className="space-y-1">
-          <label className="text-sm font-medium">작업 유형</label>
+          <label htmlFor="type" className="text-sm font-medium">작업 유형</label>
           <Select
+            id="type"
             className="w-full"
             placeholder="유형 선택"
             options={Object.entries(TYPE_LABELS).map(([value, label]) => ({ value, label }))}
@@ -77,8 +79,9 @@ export function NewTaskClient() {
         </div>
 
         <div className="space-y-1">
-          <label className="text-sm font-medium">담당 작업자</label>
+          <label htmlFor="workerId" className="text-sm font-medium">담당 작업자</label>
           <Select
+            id="workerId"
             className="w-full"
             placeholder="작업자 선택"
             options={workers.map((w) => ({ value: w.id, label: w.name }))}
@@ -88,8 +91,9 @@ export function NewTaskClient() {
         </div>
 
         <div className="space-y-1">
-          <label className="text-sm font-medium">마감일</label>
+          <label htmlFor="dueDate" className="text-sm font-medium">마감일</label>
           <Input
+            id="dueDate"
             type="date"
             className="w-full"
             {...register('dueDate', { required: '마감일을 선택해주세요' })}
