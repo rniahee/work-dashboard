@@ -2,13 +2,14 @@
 
 import { useWorkersQuery } from "@/hooks/useWorkersQuery";
 import { useStatsQuery } from "@/hooks/useStatsQuery";
+import { Loading } from "@/components/ui/Loading";
 
 export function WorkersClient() {
   const { data: workers = [], isLoading } = useWorkersQuery();
   const { data: stats } = useStatsQuery();
 
   if (isLoading)
-    return <p className="p-6 text-sm text-gray-500">불러오는 중...</p>;
+    return <Loading />;
 
   return (
     <main className="p-6 space-y-4">

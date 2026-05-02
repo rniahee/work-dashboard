@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import type { Task, TaskType } from '@/types/task';
 import { useTaskQuery } from '@/hooks/useTaskQuery';
 import { useWorkersQuery } from '@/hooks/useWorkersQuery';
+import { Loading } from '@/components/ui/Loading';
 import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -66,7 +67,7 @@ export function TaskDetailClient({ id }: { id: string }) {
     },
   });
 
-  if (isLoading) return <p className="p-6 text-sm text-gray-500">불러오는 중...</p>;
+  if (isLoading) return <Loading />;
   if (!task) return <p className="p-6 text-sm text-red-500">작업을 찾을 수 없습니다.</p>;
 
   return (

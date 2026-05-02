@@ -6,6 +6,7 @@ import Link from "next/link";
 import { STATUS_LABELS, TYPE_LABELS } from "@/constants/task";
 import { useTasksQuery } from "@/hooks/useTasksQuery";
 import { useWorkersQuery } from "@/hooks/useWorkersQuery";
+import { Loading } from "@/components/ui/Loading";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 
@@ -55,7 +56,7 @@ export function TasksClient() {
       </div>
 
       {tasksLoading ? (
-        <p className="text-sm text-gray-500">불러오는 중...</p>
+        <Loading className="" />
       ) : (
         <table className="w-full text-sm border-collapse">
           <thead>

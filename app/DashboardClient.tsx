@@ -1,6 +1,7 @@
 'use client';
 
 import { useStatsQuery } from '@/hooks/useStatsQuery';
+import { Loading } from '@/components/ui/Loading';
 import { StatCard } from './_components/StatCard';
 import { StatusDonutChart } from './_components/StatusDonutChart';
 import { WorkerBarChart } from './_components/WorkerBarChart';
@@ -9,7 +10,7 @@ import { RecentTaskList } from './_components/RecentTaskList';
 export function DashboardClient() {
   const { data: stats, isLoading } = useStatsQuery();
 
-  if (isLoading) return <p className="p-6 text-sm text-gray-500">불러오는 중...</p>;
+  if (isLoading) return <Loading />;
   if (!stats) return null;
 
   return (

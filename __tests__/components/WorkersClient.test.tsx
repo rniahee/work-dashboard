@@ -36,9 +36,9 @@ beforeEach(() => {
 });
 
 describe('WorkersClient', () => {
-  it('로딩 중 텍스트를 표시한다', () => {
+  it('로딩 스피너를 표시한다', () => {
     renderWithProviders(<WorkersClient />);
-    expect(screen.getByText('불러오는 중...')).toBeInTheDocument();
+    expect(screen.getByRole('status', { name: '로딩 중' })).toBeInTheDocument();
   });
 
   it('작업자 목록을 렌더링한다', async () => {
