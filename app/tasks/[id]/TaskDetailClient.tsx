@@ -6,10 +6,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
 import type { Task, TaskType } from '@/types/task';
+import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
 import { useTaskQuery } from '@/hooks/useTaskQuery';
 import { useWorkersQuery } from '@/hooks/useWorkersQuery';
 import { Loading } from '@/components/ui/Loading';
-import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
