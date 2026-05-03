@@ -34,7 +34,7 @@
 
 ### 작업 상세 (`/tasks/[id]`)
 - 작업 정보 조회 및 수정
-- 작업 삭제
+- 커스텀 확인 모달을 통한 작업 삭제
 
 ### 작업자 관리 (`/workers`)
 - 작업자 목록
@@ -62,8 +62,9 @@
 │   └── workers/            # 작업자 관리 페이지
 ├── components/
 │   ├── layout/             # Header, Sidebar, LayoutShell
-│   └── ui/                 # 공통 UI 컴포넌트 (Button, Input, Select)
+│   └── ui/                 # 공통 UI 컴포넌트 (Button, Input, Select, Loading, ConfirmModal)
 ├── constants/              # 상태/유형 레이블 상수
+├── hooks/                  # 커스텀 쿼리 훅 (useTasksQuery, useTaskQuery, useWorkersQuery, useStatsQuery)
 ├── mocks/                  # MSW 핸들러 및 목업 데이터
 └── types/                  # Task, Worker, Stats 타입 정의
 ```
