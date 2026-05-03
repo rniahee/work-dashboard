@@ -58,7 +58,7 @@ export function TasksClient() {
       {tasksLoading ? (
         <Loading className="" />
       ) : (
-        <table className="w-full text-sm border-collapse">
+        <table aria-label="작업 목록" className="w-full text-sm border-collapse">
           <thead>
             <tr className="border-b bg-gray-50 text-left">
               <th className="px-4 py-2">작업명</th>

@@ -15,7 +15,7 @@ export function WorkersClient() {
     <main className="p-6 space-y-4">
       <h1 className="text-2xl font-bold">작업자 관리</h1>
 
-      <table className="w-full text-sm border-collapse">
+      <table aria-label="작업자 목록" className="w-full text-sm border-collapse">
         <thead>
           <tr className="border-b bg-gray-50 text-left">
             <th className="px-4 py-2">이름</th>
