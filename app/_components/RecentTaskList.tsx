@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import Link from 'next/link';
 
 import { STATUS_LABELS } from '@/constants/task';
@@ -10,9 +11,10 @@ export function RecentTaskList() {
   const { data: tasks = [] } = useTasksQuery();
   const { data: workers = [] } = useWorkersQuery();
 
-  const recentTasks = [...tasks]
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-    .slice(0, 5);
+  const recentTasks = useMemo(
+    () => [...tasks].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 5),
+    [tasks],
+  );
 
   return (
     <div className="rounded-lg border bg-white p-5 space-y-3">
