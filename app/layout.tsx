@@ -7,8 +7,8 @@ import { QueryProvider } from "./providers/QueryProvider";
 
 
 export const metadata: Metadata = {
-  title: "LabelBoard",
-  description: "데이터 라벨링 태스크 관리 대시보드",
+  title: "Work Dashboard",
+  description: "작업 현황을 한눈에 관리하고 시각화하는 태스크 관리 대시보드",
 };
 
 export default function RootLayout({

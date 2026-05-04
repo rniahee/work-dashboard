@@ -5,7 +5,7 @@ type Props = {
 export function Header({ onMenuClick }: Props) {
   return (
     <header className="h-12 md:h-16 shrink-0 border-b bg-white flex items-center justify-between px-4 md:px-6">
-      <span className="text-base md:text-lg font-bold text-blue-600">LabelBoard</span>
+      <span className="text-base md:text-lg font-bold text-blue-600">Work Dashboard</span>
       <button
         className="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100"
         onClick={onMenuClick}
