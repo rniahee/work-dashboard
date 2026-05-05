@@ -2,6 +2,8 @@
 
 작업 현황을 한눈에 관리하고 시각화하는 태스크 관리 대시보드입니다.
 
+**Demo:** [https://work-dashboard-vercel.vercel.app](https://work-dashboard-vercel.vercel.app)
+
 ## 기술 스택
 
 | 분류        | 기술                    |
