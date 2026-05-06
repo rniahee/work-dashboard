@@ -4,6 +4,16 @@
 
 **Demo:** [https://work-dashboard-vercel.vercel.app](https://work-dashboard-vercel.vercel.app)
 
+## 스크린샷
+
+| 대시보드 홈 | 작업 목록 |
+|-------------|-----------|
+| ![대시보드 홈](public/screenshots/dashboard.png) | ![작업 목록](public/screenshots/tasks.png) |
+
+| 작업 등록 | 작업자 관리 |
+|-----------|-------------|
+| ![작업 등록](public/screenshots/tasks-new.png) | ![작업자 관리](public/screenshots/workers.png) |
+
 ## 기술 스택
 
 | 분류        | 기술                    |
