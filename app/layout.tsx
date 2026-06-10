@@ -4,6 +4,7 @@ import "./globals.css";
 import { LayoutShell } from "@/components/layout/LayoutShell";
 import { MSWProvider } from "./providers/MSWProvider";
 import { QueryProvider } from "./providers/QueryProvider";
+import { ThemeProvider } from "./providers/ThemeProvider";
 
 
 export const metadata: Metadata = {
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className="h-full flex flex-col">
         <MSWProvider>
           <QueryProvider>
-            <LayoutShell>{children}</LayoutShell>
+            <ThemeProvider>
+              <LayoutShell>{children}</LayoutShell>
+            </ThemeProvider>
           </QueryProvider>
         </MSWProvider>
       </body>
