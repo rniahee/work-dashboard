@@ -1,10 +1,21 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useThemeStore } from '@/store/themeStore';
+import { useThemeStore, type Theme } from '@/store/themeStore';
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+type Props = {
+  initialTheme: Theme;
+  children: React.ReactNode;
+};
+
+export function ThemeProvider({ initialTheme, children }: Props) {
   const theme = useThemeStore((s) => s.theme);
+
+  useEffect(() => {
+    useThemeStore.setState({ theme: initialTheme });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;

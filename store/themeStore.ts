@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export type Theme = 'light' | 'dark' | 'system';
 
@@ -8,12 +7,10 @@ type ThemeStore = {
   setTheme: (theme: Theme) => void;
 };
 
-export const useThemeStore = create<ThemeStore>()(
-  persist(
-    (set) => ({
-      theme: 'system',
-      setTheme: (theme) => set({ theme }),
-    }),
-    { name: 'theme' }
-  )
-);
+export const useThemeStore = create<ThemeStore>()((set) => ({
+  theme: 'system',
+  setTheme: (theme) => {
+    document.cookie = `theme=${theme};path=/;max-age=${60 * 60 * 24 * 365}`;
+    set({ theme });
+  },
+}));
