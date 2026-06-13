@@ -1,21 +1,23 @@
-"use client";
+'use client';
 
-import { useWorkersQuery } from "@/hooks/useWorkersQuery";
-import { useStatsQuery } from "@/hooks/useStatsQuery";
-import { Loading } from "@/components/ui/Loading";
+import { useWorkersQuery } from '@/hooks/useWorkersQuery';
+import { useStatsQuery } from '@/hooks/useStatsQuery';
+import { Loading } from '@/components/ui/Loading';
 
 export function WorkersClient() {
   const { data: workers = [], isLoading } = useWorkersQuery();
   const { data: stats } = useStatsQuery();
 
-  if (isLoading)
-    return <Loading />;
+  if (isLoading) return <Loading />;
 
   return (
     <main className="p-6 space-y-4">
       <h1 className="text-2xl font-bold">작업자 관리</h1>
 
-      <table aria-label="작업자 목록" className="w-full text-sm border-collapse">
+      <table
+        aria-label="작업자 목록"
+        className="w-full text-sm border-collapse"
+      >
         <thead>
           <tr className="border-b bg-gray-50 text-left">
             <th className="px-4 py-2">이름</th>

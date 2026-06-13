@@ -16,7 +16,9 @@ describe('Select', () => {
 
   it('placeholder를 첫 번째 option으로 렌더링한다', () => {
     render(<Select options={options} placeholder="상태 선택" />);
-    expect(screen.getByRole('option', { name: '상태 선택' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('option', { name: '상태 선택' }),
+    ).toBeInTheDocument();
   });
 
   it('placeholder가 없으면 빈 option을 렌더링하지 않는다', () => {

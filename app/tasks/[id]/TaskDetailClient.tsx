@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
 
-import type { Task, TaskType } from "@/types/task";
-import { STATUS_LABELS, TYPE_LABELS } from "@/constants/task";
-import { useTaskQuery } from "@/hooks/useTaskQuery";
-import { useWorkersQuery } from "@/hooks/useWorkersQuery";
-import { ConfirmModal } from "@/components/ui/ConfirmModal";
-import { Loading } from "@/components/ui/Loading";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Select } from "@/components/ui/Select";
+import type { Task, TaskType } from '@/types/task';
+import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
+import { useTaskQuery } from '@/hooks/useTaskQuery';
+import { useWorkersQuery } from '@/hooks/useWorkersQuery';
+import { ConfirmModal } from '@/components/ui/ConfirmModal';
+import { Loading } from '@/components/ui/Loading';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Select } from '@/components/ui/Select';
 
 type FormValues = {
   title: string;
   workerId: string;
   dueDate: string;
   type: TaskType;
-  status: Task["status"];
+  status: Task['status'];
 };
 
 export function TaskDetailClient({ id }: { id: string }) {
@@ -46,27 +46,27 @@ export function TaskDetailClient({ id }: { id: string }) {
   const { mutate: updateTask, isPending: isUpdating } = useMutation({
     mutationFn: async (data: FormValues) => {
       const res = await fetch(`/api/tasks/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error("수정 실패");
+      if (!res.ok) throw new Error('수정 실패');
       return res.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      router.push("/tasks");
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      router.push('/tasks');
     },
   });
 
   const { mutate: deleteTask, isPending: isDeleting } = useMutation({
     mutationFn: async () => {
-      const res = await fetch(`/api/tasks/${id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error("삭제 실패");
+      const res = await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('삭제 실패');
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      router.push("/tasks");
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      router.push('/tasks');
     },
   });
 
@@ -89,7 +89,7 @@ export function TaskDetailClient({ id }: { id: string }) {
           <Input
             id="title"
             className="w-full"
-            {...register("title", { required: "작업명을 입력해주세요" })}
+            {...register('title', { required: '작업명을 입력해주세요' })}
           />
           {errors.title && (
             <p className="text-xs text-red-500">{errors.title.message}</p>
@@ -107,7 +107,7 @@ export function TaskDetailClient({ id }: { id: string }) {
               value,
               label,
             }))}
-            {...register("type", { required: "작업 유형을 선택해주세요" })}
+            {...register('type', { required: '작업 유형을 선택해주세요' })}
           />
           {errors.type && (
             <p className="text-xs text-red-500">{errors.type.message}</p>
@@ -122,8 +122,8 @@ export function TaskDetailClient({ id }: { id: string }) {
             id="workerId"
             className="w-full"
             options={workers.map((w) => ({ value: w.id, label: w.name }))}
-            {...register("workerId", {
-              required: "담당 작업자를 선택해주세요",
+            {...register('workerId', {
+              required: '담당 작업자를 선택해주세요',
             })}
           />
           {errors.workerId && (
@@ -142,7 +142,7 @@ export function TaskDetailClient({ id }: { id: string }) {
               value,
               label,
             }))}
-            {...register("status", { required: "상태를 선택해주세요" })}
+            {...register('status', { required: '상태를 선택해주세요' })}
           />
           {errors.status && (
             <p className="text-xs text-red-500">{errors.status.message}</p>
@@ -157,7 +157,7 @@ export function TaskDetailClient({ id }: { id: string }) {
             id="dueDate"
             type="date"
             className="w-full"
-            {...register("dueDate", { required: "마감일을 선택해주세요" })}
+            {...register('dueDate', { required: '마감일을 선택해주세요' })}
           />
           {errors.dueDate && (
             <p className="text-xs text-red-500">{errors.dueDate.message}</p>
@@ -166,7 +166,7 @@ export function TaskDetailClient({ id }: { id: string }) {
 
         <div className="flex gap-2 pt-2">
           <Button type="submit" disabled={isUpdating}>
-            {isUpdating ? "저장 중..." : "저장"}
+            {isUpdating ? '저장 중...' : '저장'}
           </Button>
           <Button
             type="button"
@@ -181,7 +181,7 @@ export function TaskDetailClient({ id }: { id: string }) {
             disabled={isDeleting}
             onClick={() => setShowDeleteModal(true)}
           >
-            {isDeleting ? "삭제 중..." : "삭제"}
+            {isDeleting ? '삭제 중...' : '삭제'}
           </Button>
         </div>
       </form>

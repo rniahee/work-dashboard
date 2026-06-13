@@ -1,21 +1,25 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
+import { useState } from 'react';
+import Link from 'next/link';
 
-import { STATUS_LABELS, TYPE_LABELS } from "@/constants/task";
-import { useTasksQuery } from "@/hooks/useTasksQuery";
-import { useWorkersQuery } from "@/hooks/useWorkersQuery";
-import { Loading } from "@/components/ui/Loading";
-import { Input } from "@/components/ui/Input";
-import { Select } from "@/components/ui/Select";
+import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
+import { useTasksQuery } from '@/hooks/useTasksQuery';
+import { useWorkersQuery } from '@/hooks/useWorkersQuery';
+import { Loading } from '@/components/ui/Loading';
+import { Input } from '@/components/ui/Input';
+import { Select } from '@/components/ui/Select';
 
 export function TasksClient() {
-  const [status, setStatus] = useState<string>("");
-  const [workerId, setWorkerId] = useState<string>("");
-  const [query, setQuery] = useState<string>("");
+  const [status, setStatus] = useState<string>('');
+  const [workerId, setWorkerId] = useState<string>('');
+  const [query, setQuery] = useState<string>('');
 
-  const { data: tasks = [], isLoading: tasksLoading } = useTasksQuery({ status, workerId, query });
+  const { data: tasks = [], isLoading: tasksLoading } = useTasksQuery({
+    status,
+    workerId,
+    query,
+  });
   const { data: workers = [] } = useWorkersQuery();
 
   return (
@@ -58,7 +62,10 @@ export function TasksClient() {
       {tasksLoading ? (
         <Loading className="" />
       ) : (
-        <table aria-label="작업 목록" className="w-full text-sm border-collapse">
+        <table
+          aria-label="작업 목록"
+          className="w-full text-sm border-collapse"
+        >
           <thead>
             <tr className="border-b bg-gray-50 text-left">
               <th className="px-4 py-2">작업명</th>
@@ -90,7 +97,7 @@ export function TasksClient() {
                     </td>
                     <td className="px-4 py-2">{TYPE_LABELS[task.type]}</td>
                     <td className="px-4 py-2">{STATUS_LABELS[task.status]}</td>
-                    <td className="px-4 py-2">{worker?.name ?? "-"}</td>
+                    <td className="px-4 py-2">{worker?.name ?? '-'}</td>
                     <td className="px-4 py-2">{task.dueDate}</td>
                   </tr>
                 );

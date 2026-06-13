@@ -26,7 +26,11 @@ describe('Button', () => {
 
   it('disabled 상태일 때 클릭되지 않는다', async () => {
     const handleClick = vi.fn();
-    render(<Button disabled onClick={handleClick}>저장</Button>);
+    render(
+      <Button disabled onClick={handleClick}>
+        저장
+      </Button>,
+    );
     await userEvent.click(screen.getByRole('button'));
     expect(handleClick).not.toHaveBeenCalled();
   });

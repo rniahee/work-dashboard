@@ -11,7 +11,9 @@ describe('Input', () => {
 
   it('placeholder를 표시한다', () => {
     render(<Input placeholder="작업명을 입력하세요" />);
-    expect(screen.getByPlaceholderText('작업명을 입력하세요')).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('작업명을 입력하세요'),
+    ).toBeInTheDocument();
   });
 
   it('입력값이 변경된다', async () => {

@@ -19,7 +19,11 @@ export function DashboardClient() {
 
       <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         <StatCard label="전체" value={stats.total} />
-        <StatCard label="진행중" value={stats.in_progress} color="text-blue-600" />
+        <StatCard
+          label="진행중"
+          value={stats.in_progress}
+          color="text-blue-600"
+        />
         <StatCard label="완료" value={stats.completed} color="text-green-600" />
         <StatCard label="반려" value={stats.rejected} color="text-red-600" />
       </section>

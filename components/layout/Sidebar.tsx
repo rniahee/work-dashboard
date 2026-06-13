@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const NAV_ITEMS = [
-  { label: "대시보드", href: "/" },
-  { label: "작업 목록", href: "/tasks" },
-  { label: "작업자 관리", href: "/workers" },
+  { label: '대시보드', href: '/' },
+  { label: '작업 목록', href: '/tasks' },
+  { label: '작업자 관리', href: '/workers' },
 ];
 
 type Props = {
@@ -19,7 +19,7 @@ export function Sidebar({ isOpen = false, onClose }: Props) {
 
   const navLinks = NAV_ITEMS.map(({ label, href }) => {
     const isActive =
-      href === "/" ? pathname === "/" : pathname.startsWith(href);
+      href === '/' ? pathname === '/' : pathname.startsWith(href);
     return (
       <Link
         key={href}
@@ -27,8 +27,8 @@ export function Sidebar({ isOpen = false, onClose }: Props) {
         onClick={onClose}
         className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
           isActive
-            ? "bg-blue-50 text-blue-600"
-            : "text-gray-600 hover:bg-gray-100"
+            ? 'bg-blue-50 text-blue-600'
+            : 'text-gray-600 hover:bg-gray-100'
         }`}
       >
         {label}

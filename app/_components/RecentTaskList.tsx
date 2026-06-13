@@ -12,7 +12,10 @@ export function RecentTaskList() {
   const { data: workers = [] } = useWorkersQuery();
 
   const recentTasks = useMemo(
-    () => [...tasks].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 5),
+    () =>
+      [...tasks]
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .slice(0, 5),
     [tasks],
   );
 
@@ -26,7 +29,10 @@ export function RecentTaskList() {
           {recentTasks.map((task) => {
             const worker = workers.find((w) => w.id === task.workerId);
             return (
-              <li key={task.id} className="py-2.5 flex items-center justify-between gap-4">
+              <li
+                key={task.id}
+                className="py-2.5 flex items-center justify-between gap-4"
+              >
                 <Link
                   href={`/tasks/${task.id}`}
                   className="text-sm text-blue-600 hover:underline truncate"
