@@ -12,14 +12,16 @@ export function WorkersClient() {
 
   return (
     <main className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold">작업자 관리</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+        작업자 관리
+      </h1>
 
       <table
         aria-label="작업자 목록"
         className="w-full text-sm border-collapse"
       >
         <thead>
-          <tr className="border-b bg-gray-50 text-left">
+          <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700 text-left">
             <th className="px-4 py-2">이름</th>
             <th className="px-4 py-2">이메일</th>
             <th className="px-4 py-2">합류일</th>
@@ -45,10 +47,17 @@ export function WorkersClient() {
               total > 0 ? Math.round((rejected / total) * 100) : 0;
 
             return (
-              <tr key={worker.id} className="border-b hover:bg-gray-50">
+              <tr
+                key={worker.id}
+                className="border-b hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
+              >
                 <td className="px-4 py-2 font-medium">{worker.name}</td>
-                <td className="px-4 py-2 text-gray-500">{worker.email}</td>
-                <td className="px-4 py-2 text-gray-500">{worker.joinedAt}</td>
+                <td className="px-4 py-2 text-gray-500 dark:text-gray-400">
+                  {worker.email}
+                </td>
+                <td className="px-4 py-2 text-gray-500 dark:text-gray-400">
+                  {worker.joinedAt}
+                </td>
                 <td className="px-4 py-2">{total}</td>
                 <td className="px-4 py-2 text-green-600">{completed}</td>
                 <td className="px-4 py-2 text-green-600">{completionRate}%</td>

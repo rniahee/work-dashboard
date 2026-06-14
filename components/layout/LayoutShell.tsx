@@ -22,7 +22,9 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       <Header onMenuClick={() => setIsOpen(true)} />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar isOpen={isOpen} onClose={() => setIsOpen(false)} />
-        <div className="flex-1 overflow-auto">{children}</div>
+        <div className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-950">
+          {children}
+        </div>
       </div>
     </>
   );

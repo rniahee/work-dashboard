@@ -27,10 +27,10 @@ export function ConfirmModal({ message, onConfirm, onCancel }: Props) {
       onClick={onCancel}
     >
       <div
-        className="bg-white rounded-lg shadow-lg p-6 w-80 space-y-4"
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-80 space-y-4"
         onClick={(e) => e.stopPropagation()}
       >
-        <p className="text-sm text-gray-700">{message}</p>
+        <p className="text-sm text-gray-700 dark:text-gray-200">{message}</p>
         <div className="flex justify-end gap-2">
           <Button type="button" variant="secondary" onClick={onCancel}>
             취소

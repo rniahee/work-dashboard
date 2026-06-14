@@ -76,7 +76,9 @@ export function TaskDetailClient({ id }: { id: string }) {
 
   return (
     <main className="p-6 max-w-lg space-y-6">
-      <h1 className="text-2xl font-bold">작업 상세</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+        작업 상세
+      </h1>
 
       <form
         onSubmit={handleSubmit((data) => updateTask(data))}

@@ -31,8 +31,10 @@ export function StatusDonutChart({ stats }: Props) {
   ].filter((d) => d.value > 0);
 
   return (
-    <div className="rounded-lg border bg-white p-5 space-y-2">
-      <p className="text-sm font-medium text-gray-700">작업 상태별 비율</p>
+    <div className="rounded-lg border bg-white dark:bg-gray-900 dark:border-gray-700 p-5 space-y-2">
+      <p className="text-sm font-medium text-gray-700 dark:text-gray-200">
+        작업 상태별 비율
+      </p>
       <ResponsiveContainer width="100%" height={240}>
         <PieChart>
           <Pie

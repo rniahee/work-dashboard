@@ -15,7 +15,9 @@ export function DashboardClient() {
 
   return (
     <main className="p-6 space-y-8">
-      <h1 className="text-2xl font-bold">대시보드</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+        대시보드
+      </h1>
 
       <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         <StatCard label="전체" value={stats.total} />

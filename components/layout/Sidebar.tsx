@@ -27,8 +27,8 @@ export function Sidebar({ isOpen = false, onClose }: Props) {
         onClick={onClose}
         className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
           isActive
-            ? 'bg-blue-50 text-blue-600'
-            : 'text-gray-600 hover:bg-gray-100'
+            ? 'bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400'
+            : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
         }`}
       >
         {label}
@@ -38,17 +38,17 @@ export function Sidebar({ isOpen = false, onClose }: Props) {
 
   return (
     <>
-      <aside className="hidden md:flex w-56 shrink-0 border-r bg-white flex-col">
+      <aside className="hidden md:flex w-56 shrink-0 border-r bg-white dark:bg-gray-900 dark:border-gray-700 flex-col">
         <nav className="flex-1 px-3 py-4 space-y-1">{navLinks}</nav>
       </aside>
 
       {isOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
           <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-          <aside className="absolute right-0 top-0 h-full w-56 bg-white flex flex-col shadow-lg">
-            <div className="h-12 flex items-center justify-end px-4 border-b">
+          <aside className="absolute right-0 top-0 h-full w-56 bg-white dark:bg-gray-900 flex flex-col shadow-lg">
+            <div className="h-12 flex items-center justify-end px-4 border-b dark:border-gray-700">
               <button
-                className="p-2 rounded-md text-gray-600 hover:bg-gray-100"
+                className="p-2 rounded-md text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
                 onClick={onClose}
                 aria-label="메뉴 닫기"
               >

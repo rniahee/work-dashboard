@@ -25,7 +25,9 @@ export function TasksClient() {
   return (
     <main className="p-6 space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">작업 목록</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          작업 목록
+        </h1>
         <Link
           href="/tasks/new"
           className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700"
@@ -67,7 +69,7 @@ export function TasksClient() {
           className="w-full text-sm border-collapse"
         >
           <thead>
-            <tr className="border-b bg-gray-50 text-left">
+            <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700 text-left">
               <th className="px-4 py-2">작업명</th>
               <th className="px-4 py-2">유형</th>
               <th className="px-4 py-2">상태</th>
@@ -78,7 +80,10 @@ export function TasksClient() {
           <tbody>
             {tasks.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-6 text-center text-gray-400">
+                <td
+                  colSpan={5}
+                  className="px-4 py-6 text-center text-gray-400 dark:text-gray-500"
+                >
                   작업이 없습니다.
                 </td>
               </tr>
@@ -86,7 +91,10 @@ export function TasksClient() {
               tasks.map((task) => {
                 const worker = workers.find((w) => w.id === task.workerId);
                 return (
-                  <tr key={task.id} className="border-b hover:bg-gray-50">
+                  <tr
+                    key={task.id}
+                    className="border-b hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
+                  >
                     <td className="px-4 py-2">
                       <Link
                         href={`/tasks/${task.id}`}
