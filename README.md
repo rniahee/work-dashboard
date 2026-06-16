@@ -6,27 +6,27 @@
 
 ## 스크린샷
 
-| 대시보드 홈 | 작업 목록 |
-|-------------|-----------|
+| 대시보드 홈                                      | 작업 목록                                  |
+| ------------------------------------------------ | ------------------------------------------ |
 | ![대시보드 홈](public/screenshots/dashboard.png) | ![작업 목록](public/screenshots/tasks.png) |
 
-| 작업 등록 | 작업자 관리 |
-|-----------|-------------|
+| 작업 등록                                      | 작업자 관리                                    |
+| ---------------------------------------------- | ---------------------------------------------- |
 | ![작업 등록](public/screenshots/tasks-new.png) | ![작업자 관리](public/screenshots/workers.png) |
 
 ## 기술 스택
 
-| 분류        | 기술                    |
-| ----------- | ----------------------- |
-| 프레임워크  | Next.js 16 (App Router) |
-| 언어        | TypeScript              |
-| 스타일      | Tailwind CSS v4         |
-| 상태 관리   | TanStack Query v5       |
-| 차트        | Recharts                |
-| 폼          | react-hook-form         |
-| API Mocking | MSW v2                  |
-| 테스트      | Vitest                  |
-| 배포        | Vercel                  |
+| 분류        | 기술                       |
+| ----------- | -------------------------- |
+| 프레임워크  | Next.js 16 (App Router)    |
+| 언어        | TypeScript                 |
+| 스타일      | Tailwind CSS v4            |
+| 상태 관리   | TanStack Query v5, Zustand |
+| 차트        | Recharts                   |
+| 폼          | react-hook-form            |
+| API Mocking | MSW v2                     |
+| 테스트      | Vitest                     |
+| 배포        | Vercel                     |
 
 ## 주요 기능
 
@@ -57,6 +57,14 @@
 - 작업자 목록
 - 작업자별 완료율 / 반려율 통계
 
+### 다크모드
+
+- 라이트 / 다크 / 시스템 세 가지 테마 지원
+- 헤더 토글 버튼으로 전환 (시스템 → 라이트 → 다크 순환)
+- 선택한 테마는 쿠키에 저장되어 페이지 새로고침 후에도 유지
+- SSR 시점에 쿠키를 읽어 `<html>` 태그에 `dark` 클래스를 적용하므로 FOUC 없음
+- 시스템 모드에서는 OS 다크모드 설정을 실시간으로 감지
+
 ## 프로젝트 구조
 
 ```
@@ -66,7 +74,7 @@
 │   │   ├── StatusDonutChart.tsx
 │   │   ├── WorkerBarChart.tsx
 │   │   └── RecentTaskList.tsx
-│   ├── providers/          # QueryProvider, MSWProvider
+│   ├── providers/          # QueryProvider, MSWProvider, ThemeProvider
 │   ├── tasks/
 │   │   ├── page.tsx        # 작업 목록 진입점
 │   │   ├── TasksClient.tsx # 목록 테이블 + 필터 + 검색
@@ -79,10 +87,11 @@
 │   └── workers/            # 작업자 관리 페이지
 ├── components/
 │   ├── layout/             # Header, Sidebar, LayoutShell
-│   └── ui/                 # 공통 UI 컴포넌트 (Button, Input, Select, Loading, ConfirmModal)
+│   └── ui/                 # 공통 UI 컴포넌트 (Button, Input, Select, Loading, ConfirmModal, ThemeToggle)
 ├── constants/              # 상태/유형 레이블 상수
 ├── hooks/                  # 커스텀 쿼리 훅 (useTasksQuery, useTaskQuery, useWorkersQuery, useStatsQuery)
 ├── mocks/                  # MSW 핸들러 및 목업 데이터
+├── store/                  # Zustand 스토어 (themeStore)
 └── types/                  # Task, Worker, Stats 타입 정의
 ```
 
@@ -114,11 +123,13 @@ yarn test:run
 
 ### 테스트 범위
 
-| 대상            | 파일                                                               |
-| --------------- | ------------------------------------------------------------------ |
-| 상수            | `constants/task.ts`                                                |
-| UI 컴포넌트     | `Button`, `Input`, `Select`, `StatCard`, `Loading`, `ConfirmModal` |
-| 페이지 컴포넌트 | `TasksClient`, `WorkersClient`                                     |
+| 대상            | 파일                                                                              |
+| --------------- | --------------------------------------------------------------------------------- |
+| 상수            | `constants/task.ts`                                                               |
+| UI 컴포넌트     | `Button`, `Input`, `Select`, `StatCard`, `Loading`, `ConfirmModal`, `ThemeToggle` |
+| 페이지 컴포넌트 | `TasksClient`, `WorkersClient`                                                    |
+| 스토어          | `themeStore`                                                                      |
+| Provider        | `ThemeProvider`                                                                   |
 
 ```
 __tests__/
@@ -126,13 +137,18 @@ __tests__/
 │   └── renderWithProviders.tsx  # QueryClient 래퍼 헬퍼
 ├── constants/
 │   └── task.test.ts
+├── store/
+│   └── themeStore.test.ts
+├── providers/
+│   └── ThemeProvider.test.tsx
 └── components/
     ├── ui/
     │   ├── Button.test.tsx
     │   ├── Input.test.tsx
     │   ├── Select.test.tsx
     │   ├── Loading.test.tsx
-    │   └── ConfirmModal.test.tsx
+    │   ├── ConfirmModal.test.tsx
+    │   └── ThemeToggle.test.tsx
     ├── StatCard.test.tsx
     ├── TasksClient.test.tsx
     └── WorkersClient.test.tsx
@@ -149,6 +165,14 @@ __tests__/
 ### 사이드바 상태 관리에 Zustand 미사용
 
 사이드바 열림/닫힘은 특정 페이지나 컴포넌트에서만 필요한 로컬 UI 상태입니다. 전역 스토어(Zustand 등)로 관리하는 방식도 검토했으나, 이 상태를 필요로 하는 곳이 `LayoutShell` 단일 컴포넌트뿐이었기 때문에 `useState`로 처리했습니다. 불필요한 의존성 추가를 줄이고 상태의 범위를 명확히 하기 위한 결정입니다.
+
+### 다크모드 테마 저장을 localStorage 대신 쿠키로 처리
+
+Zustand의 `persist` 미들웨어를 이용한 `localStorage` 저장 방식을 먼저 구현했으나, 이 경우 테마 클래스 적용이 `useEffect` 이후에 이루어져 FOUC(Flash of Unstyled Content)가 발생했습니다. 이를 해결하기 위해 쿠키 기반 방식으로 전환했습니다.
+
+Next.js App Router의 `layout.tsx`는 서버 컴포넌트이므로 `next/headers`의 `cookies()`로 요청 시점에 쿠키를 읽어 `<html>` 태그에 `dark` 클래스를 직접 포함해 HTML을 내려줄 수 있습니다. 덕분에 클라이언트 스크립트 실행 이전에 이미 올바른 테마가 적용된 상태로 렌더링됩니다.
+
+테마 변경 시에는 Zustand `setTheme` 액션 내부에서 `document.cookie`에 직접 저장하고, `ThemeProvider`는 서버에서 읽은 초기값을 마운트 시점에 스토어에 동기화합니다.
 
 ### 커스텀 쿼리 훅 분리
 
@@ -186,11 +210,11 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
 ```ts
 // ❌ 중복 요소로 에러
-expect(screen.getByText("김민지")).toBeInTheDocument();
+expect(screen.getByText('김민지')).toBeInTheDocument();
 
 // ✅ 특정 요소 타입으로 한정
-const elements = screen.getAllByText("김민지");
-expect(elements.some((el) => el.tagName === "TD")).toBe(true);
+const elements = screen.getAllByText('김민지');
+expect(elements.some((el) => el.tagName === 'TD')).toBe(true);
 ```
 
 ### Recharts Tooltip formatter 타입 추론 오류
@@ -224,5 +248,5 @@ MSW를 사용해 개발 환경에서 API를 모킹합니다.
 - [ ] 실제 백엔드 연동 (Next.js API Routes + DB)
 - [ ] 로그인 / 인증 기능 추가
 - [ ] 작업 마감일 기반 알림 기능
-- [ ] 다크 모드 지원
+- [x] 다크 모드 지원
 - [ ] E2E 테스트 추가 (Playwright)
