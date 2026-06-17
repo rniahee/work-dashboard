@@ -85,7 +85,7 @@ export function TaskDetailClient({ id }: { id: string }) {
         className="space-y-4"
       >
         <div className="space-y-1">
-          <label htmlFor="title" className="text-sm font-medium">
+          <label htmlFor="title" className="text-sm font-medium text-gray-700 dark:text-gray-200">
             작업명
           </label>
           <Input
@@ -99,7 +99,7 @@ export function TaskDetailClient({ id }: { id: string }) {
         </div>
 
         <div className="space-y-1">
-          <label htmlFor="type" className="text-sm font-medium">
+          <label htmlFor="type" className="text-sm font-medium text-gray-700 dark:text-gray-200">
             작업 유형
           </label>
           <Select
@@ -117,7 +117,7 @@ export function TaskDetailClient({ id }: { id: string }) {
         </div>
 
         <div className="space-y-1">
-          <label htmlFor="workerId" className="text-sm font-medium">
+          <label htmlFor="workerId" className="text-sm font-medium text-gray-700 dark:text-gray-200">
             담당 작업자
           </label>
           <Select
@@ -134,7 +134,7 @@ export function TaskDetailClient({ id }: { id: string }) {
         </div>
 
         <div className="space-y-1">
-          <label htmlFor="status" className="text-sm font-medium">
+          <label htmlFor="status" className="text-sm font-medium text-gray-700 dark:text-gray-200">
             상태
           </label>
           <Select
@@ -152,7 +152,7 @@ export function TaskDetailClient({ id }: { id: string }) {
         </div>
 
         <div className="space-y-1">
-          <label htmlFor="dueDate" className="text-sm font-medium">
+          <label htmlFor="dueDate" className="text-sm font-medium text-gray-700 dark:text-gray-200">
             마감일
           </label>
           <Input
