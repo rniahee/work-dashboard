@@ -10,7 +10,9 @@ type ThemeStore = {
 export const useThemeStore = create<ThemeStore>()((set) => ({
   theme: 'system',
   setTheme: (theme) => {
-    document.cookie = `theme=${theme};path=/;max-age=${60 * 60 * 24 * 365}`;
+    if (typeof document !== 'undefined') {
+      document.cookie = `theme=${theme};path=/;max-age=${60 * 60 * 24 * 365}`;
+    }
     set({ theme });
   },
 }));
