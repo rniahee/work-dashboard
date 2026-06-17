@@ -10,6 +10,7 @@ import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
 import { useTaskQuery } from '@/hooks/useTaskQuery';
 import { useWorkersQuery } from '@/hooks/useWorkersQuery';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
+import { FormField } from '@/components/ui/FormField';
 import { Loading } from '@/components/ui/Loading';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -84,24 +85,15 @@ export function TaskDetailClient({ id }: { id: string }) {
         onSubmit={handleSubmit((data) => updateTask(data))}
         className="space-y-4"
       >
-        <div className="space-y-1">
-          <label htmlFor="title" className="text-sm font-medium text-gray-700 dark:text-gray-200">
-            작업명
-          </label>
+        <FormField label="작업명" htmlFor="title" error={errors.title}>
           <Input
             id="title"
             className="w-full"
             {...register('title', { required: '작업명을 입력해주세요' })}
           />
-          {errors.title && (
-            <p className="text-xs text-red-500">{errors.title.message}</p>
-          )}
-        </div>
+        </FormField>
 
-        <div className="space-y-1">
-          <label htmlFor="type" className="text-sm font-medium text-gray-700 dark:text-gray-200">
-            작업 유형
-          </label>
+        <FormField label="작업 유형" htmlFor="type" error={errors.type}>
           <Select
             id="type"
             className="w-full"
@@ -111,32 +103,18 @@ export function TaskDetailClient({ id }: { id: string }) {
             }))}
             {...register('type', { required: '작업 유형을 선택해주세요' })}
           />
-          {errors.type && (
-            <p className="text-xs text-red-500">{errors.type.message}</p>
-          )}
-        </div>
+        </FormField>
 
-        <div className="space-y-1">
-          <label htmlFor="workerId" className="text-sm font-medium text-gray-700 dark:text-gray-200">
-            담당 작업자
-          </label>
+        <FormField label="담당 작업자" htmlFor="workerId" error={errors.workerId}>
           <Select
             id="workerId"
             className="w-full"
             options={workers.map((w) => ({ value: w.id, label: w.name }))}
-            {...register('workerId', {
-              required: '담당 작업자를 선택해주세요',
-            })}
+            {...register('workerId', { required: '담당 작업자를 선택해주세요' })}
           />
-          {errors.workerId && (
-            <p className="text-xs text-red-500">{errors.workerId.message}</p>
-          )}
-        </div>
+        </FormField>
 
-        <div className="space-y-1">
-          <label htmlFor="status" className="text-sm font-medium text-gray-700 dark:text-gray-200">
-            상태
-          </label>
+        <FormField label="상태" htmlFor="status" error={errors.status}>
           <Select
             id="status"
             className="w-full"
@@ -146,25 +124,16 @@ export function TaskDetailClient({ id }: { id: string }) {
             }))}
             {...register('status', { required: '상태를 선택해주세요' })}
           />
-          {errors.status && (
-            <p className="text-xs text-red-500">{errors.status.message}</p>
-          )}
-        </div>
+        </FormField>
 
-        <div className="space-y-1">
-          <label htmlFor="dueDate" className="text-sm font-medium text-gray-700 dark:text-gray-200">
-            마감일
-          </label>
+        <FormField label="마감일" htmlFor="dueDate" error={errors.dueDate}>
           <Input
             id="dueDate"
             type="date"
             className="w-full"
             {...register('dueDate', { required: '마감일을 선택해주세요' })}
           />
-          {errors.dueDate && (
-            <p className="text-xs text-red-500">{errors.dueDate.message}</p>
-          )}
-        </div>
+        </FormField>
 
         <div className="flex gap-2 pt-2">
           <Button type="submit" disabled={isUpdating}>
