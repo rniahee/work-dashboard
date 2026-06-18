@@ -18,7 +18,7 @@ export function Select({
 }: Props) {
   return (
     <select
-      className={`border rounded-md px-3 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 ${className}`}
+      className={`border rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 ${className}`}
       {...props}
     >
       {placeholder && <option value="">{placeholder}</option>}
