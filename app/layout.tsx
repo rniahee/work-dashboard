@@ -24,7 +24,7 @@ export default async function RootLayout({
 
   return (
     <html lang="ko" className={`h-full antialiased${isDark ? ' dark' : ''}`}>
-      <body className="h-full flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+      <body className="h-full flex flex-col dark:bg-gray-950 text-gray-900 dark:text-gray-100">
         <MSWProvider>
           <QueryProvider>
             <ThemeProvider initialTheme={savedTheme}>
