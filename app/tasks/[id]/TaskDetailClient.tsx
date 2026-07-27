@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
 import type { Task, TaskType } from '@/types/task';
 import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
 import { useTaskQuery } from '@/hooks/useTaskQuery';
 import { useWorkersQuery } from '@/hooks/useWorkersQuery';
+import { useUpdateTask } from '@/hooks/useUpdateTask';
+import { useDeleteTask } from '@/hooks/useDeleteTask';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
 import { FormField } from '@/components/ui/FormField';
 import { Loading } from '@/components/ui/Loading';
@@ -28,7 +29,6 @@ export function TaskDetailClient({ id }: { id: string }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const { data: task, isLoading } = useTaskQuery(id);
   const { data: workers = [] } = useWorkersQuery();
@@ -44,32 +44,8 @@ export function TaskDetailClient({ id }: { id: string }) {
     if (task) reset(task);
   }, [task, reset]);
 
-  const { mutate: updateTask, isPending: isUpdating } = useMutation({
-    mutationFn: async (data: FormValues) => {
-      const res = await fetch(`/api/tasks/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error('수정 실패');
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] });
-      router.push('/tasks');
-    },
-  });
-
-  const { mutate: deleteTask, isPending: isDeleting } = useMutation({
-    mutationFn: async () => {
-      const res = await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error('삭제 실패');
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] });
-      router.push('/tasks');
-    },
-  });
+  const { mutate: updateTask, isPending: isUpdating } = useUpdateTask(id);
+  const { mutate: deleteTask, isPending: isDeleting } = useDeleteTask(id);
 
   if (isLoading) return <Loading />;
   if (!task)
@@ -105,12 +81,18 @@ export function TaskDetailClient({ id }: { id: string }) {
           />
         </FormField>
 
-        <FormField label="담당 작업자" htmlFor="workerId" error={errors.workerId}>
+        <FormField
+          label="담당 작업자"
+          htmlFor="workerId"
+          error={errors.workerId}
+        >
           <Select
             id="workerId"
             className="w-full"
             options={workers.map((w) => ({ value: w.id, label: w.name }))}
-            {...register('workerId', { required: '담당 작업자를 선택해주세요' })}
+            {...register('workerId', {
+              required: '담당 작업자를 선택해주세요',
+            })}
           />
         </FormField>
 

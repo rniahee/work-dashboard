@@ -1,12 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
-import type { TaskType, TaskStatus } from '@/types/task';
+import type { TaskType } from '@/types/task';
 import { TYPE_LABELS } from '@/constants/task';
 import { useWorkersQuery } from '@/hooks/useWorkersQuery';
+import { useCreateTask } from '@/hooks/useCreateTask';
 import { Button } from '@/components/ui/Button';
 import { FormField } from '@/components/ui/FormField';
 import { Input } from '@/components/ui/Input';
@@ -21,7 +21,6 @@ type FormValues = {
 
 export function NewTaskClient() {
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const {
     register,
@@ -30,26 +29,7 @@ export function NewTaskClient() {
   } = useForm<FormValues>();
 
   const { data: workers = [] } = useWorkersQuery();
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: async (data: FormValues) => {
-      const body: FormValues & { status: TaskStatus } = {
-        ...data,
-        status: 'pending',
-      };
-      const res = await fetch('/api/tasks', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      if (!res.ok) throw new Error('등록 실패');
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] });
-      router.push('/tasks');
-    },
-  });
+  const { mutate, isPending } = useCreateTask();
 
   return (
     <main className="p-6 max-w-lg space-y-6">
@@ -58,7 +38,9 @@ export function NewTaskClient() {
       </h1>
 
       <form
-        onSubmit={handleSubmit((data) => mutate(data))}
+        onSubmit={handleSubmit((data) =>
+          mutate({ ...data, status: 'pending' }),
+        )}
         className="space-y-4"
       >
         <FormField label="작업명" htmlFor="title" error={errors.title}>
@@ -83,13 +65,19 @@ export function NewTaskClient() {
           />
         </FormField>
 
-        <FormField label="담당 작업자" htmlFor="workerId" error={errors.workerId}>
+        <FormField
+          label="담당 작업자"
+          htmlFor="workerId"
+          error={errors.workerId}
+        >
           <Select
             id="workerId"
             className="w-full"
             placeholder="작업자 선택"
             options={workers.map((w) => ({ value: w.id, label: w.name }))}
-            {...register('workerId', { required: '담당 작업자를 선택해주세요' })}
+            {...register('workerId', {
+              required: '담당 작업자를 선택해주세요',
+            })}
           />
         </FormField>
 
