@@ -1,29 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
 
-import type { Task, TaskType } from '@/types/task';
-import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
 import { useTaskQuery } from '@/hooks/useTaskQuery';
 import { useWorkersQuery } from '@/hooks/useWorkersQuery';
 import { useUpdateTask } from '@/hooks/useUpdateTask';
 import { useDeleteTask } from '@/hooks/useDeleteTask';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
-import { FormField } from '@/components/ui/FormField';
 import { Loading } from '@/components/ui/Loading';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Select } from '@/components/ui/Select';
-
-type FormValues = {
-  title: string;
-  workerId: string;
-  dueDate: string;
-  type: TaskType;
-  status: Task['status'];
-};
+import { TaskForm } from '@/components/task/TaskForm';
 
 export function TaskDetailClient({ id }: { id: string }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -32,17 +19,6 @@ export function TaskDetailClient({ id }: { id: string }) {
 
   const { data: task, isLoading } = useTaskQuery(id);
   const { data: workers = [] } = useWorkersQuery();
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormValues>();
-
-  useEffect(() => {
-    if (task) reset(task);
-  }, [task, reset]);
 
   const { mutate: updateTask, isPending: isUpdating } = useUpdateTask(id);
   const { mutate: deleteTask, isPending: isDeleting } = useDeleteTask(id);
@@ -57,77 +33,15 @@ export function TaskDetailClient({ id }: { id: string }) {
         작업 상세
       </h1>
 
-      <form
-        onSubmit={handleSubmit((data) => updateTask(data))}
-        className="space-y-4"
-      >
-        <FormField label="작업명" htmlFor="title" error={errors.title}>
-          <Input
-            id="title"
-            className="w-full"
-            {...register('title', { required: '작업명을 입력해주세요' })}
-          />
-        </FormField>
-
-        <FormField label="작업 유형" htmlFor="type" error={errors.type}>
-          <Select
-            id="type"
-            className="w-full"
-            options={Object.entries(TYPE_LABELS).map(([value, label]) => ({
-              value,
-              label,
-            }))}
-            {...register('type', { required: '작업 유형을 선택해주세요' })}
-          />
-        </FormField>
-
-        <FormField
-          label="담당 작업자"
-          htmlFor="workerId"
-          error={errors.workerId}
-        >
-          <Select
-            id="workerId"
-            className="w-full"
-            options={workers.map((w) => ({ value: w.id, label: w.name }))}
-            {...register('workerId', {
-              required: '담당 작업자를 선택해주세요',
-            })}
-          />
-        </FormField>
-
-        <FormField label="상태" htmlFor="status" error={errors.status}>
-          <Select
-            id="status"
-            className="w-full"
-            options={Object.entries(STATUS_LABELS).map(([value, label]) => ({
-              value,
-              label,
-            }))}
-            {...register('status', { required: '상태를 선택해주세요' })}
-          />
-        </FormField>
-
-        <FormField label="마감일" htmlFor="dueDate" error={errors.dueDate}>
-          <Input
-            id="dueDate"
-            type="date"
-            className="w-full"
-            {...register('dueDate', { required: '마감일을 선택해주세요' })}
-          />
-        </FormField>
-
-        <div className="flex gap-2 pt-2">
-          <Button type="submit" disabled={isUpdating}>
-            {isUpdating ? '저장 중...' : '저장'}
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => router.back()}
-          >
-            취소
-          </Button>
+      <TaskForm
+        workers={workers}
+        values={task}
+        showStatusField
+        submitLabel={isUpdating ? '저장 중...' : '저장'}
+        isSubmitting={isUpdating}
+        onSubmit={(data) => updateTask(data)}
+        onCancel={() => router.back()}
+        extraActions={
           <Button
             type="button"
             variant="danger"
@@ -136,8 +50,8 @@ export function TaskDetailClient({ id }: { id: string }) {
           >
             {isDeleting ? '삭제 중...' : '삭제'}
           </Button>
-        </div>
-      </form>
+        }
+      />
 
       {showDeleteModal && (
         <ConfirmModal
