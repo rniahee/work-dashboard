@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
+import { STATUS_LABELS, STATUS_OPTIONS, TYPE_LABELS } from '@/constants/task';
 import { useTasksQuery } from '@/hooks/useTasksQuery';
 import { useWorkersQuery } from '@/hooks/useWorkersQuery';
 import { Loading } from '@/components/ui/Loading';
@@ -48,10 +48,7 @@ export function TasksClient() {
           value={status}
           onChange={(e) => setStatus(e.target.value)}
           placeholder="전체 상태"
-          options={Object.entries(STATUS_LABELS).map(([value, label]) => ({
-            value,
-            label,
-          }))}
+          options={STATUS_OPTIONS}
         />
         <Select
           value={workerId}

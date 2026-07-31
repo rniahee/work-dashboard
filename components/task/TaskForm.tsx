@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
 import type { TaskType, TaskStatus, Worker } from '@/types/task';
-import { STATUS_LABELS, TYPE_LABELS } from '@/constants/task';
+import { STATUS_OPTIONS, TYPE_OPTIONS } from '@/constants/task';
 import { FormField } from '@/components/ui/FormField';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -63,10 +63,7 @@ export function TaskForm({
           id="type"
           className="w-full"
           placeholder="유형 선택"
-          options={Object.entries(TYPE_LABELS).map(([value, label]) => ({
-            value,
-            label,
-          }))}
+          options={TYPE_OPTIONS}
           {...register('type', { required: '작업 유형을 선택해주세요' })}
         />
       </FormField>
@@ -86,10 +83,7 @@ export function TaskForm({
           <Select
             id="status"
             className="w-full"
-            options={Object.entries(STATUS_LABELS).map(([value, label]) => ({
-              value,
-              label,
-            }))}
+            options={STATUS_OPTIONS}
             {...register('status', { required: '상태를 선택해주세요' })}
           />
         </FormField>

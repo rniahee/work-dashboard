@@ -12,3 +12,11 @@ export const TYPE_LABELS: Record<Task['type'], string> = {
   text: '텍스트',
   audio: '오디오',
 };
+
+export const STATUS_OPTIONS = Object.entries(STATUS_LABELS).map(
+  ([value, label]) => ({ value, label }),
+);
+
+export const TYPE_OPTIONS = Object.entries(TYPE_LABELS).map(
+  ([value, label]) => ({ value, label }),
+);
