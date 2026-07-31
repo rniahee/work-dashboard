@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { STATUS_LABELS, STATUS_OPTIONS, TYPE_LABELS } from '@/constants/task';
 import { useTasksQuery } from '@/hooks/useTasksQuery';
 import { useWorkersQuery } from '@/hooks/useWorkersQuery';
+import { useWorkerMap } from '@/hooks/useWorkerMap';
 import { Loading } from '@/components/ui/Loading';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
@@ -21,6 +22,7 @@ export function TasksClient() {
     query,
   });
   const { data: workers = [] } = useWorkersQuery();
+  const workerMap = useWorkerMap();
 
   return (
     <main className="p-6 space-y-4">
@@ -86,7 +88,8 @@ export function TasksClient() {
               </tr>
             ) : (
               tasks.map((task) => {
-                const worker = workers.find((w) => w.id === task.workerId);
+                const worker = workerMap.get(task.workerId);
+
                 return (
                   <tr
                     key={task.id}

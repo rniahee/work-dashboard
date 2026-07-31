@@ -5,11 +5,11 @@ import Link from 'next/link';
 
 import { STATUS_LABELS } from '@/constants/task';
 import { useTasksQuery } from '@/hooks/useTasksQuery';
-import { useWorkersQuery } from '@/hooks/useWorkersQuery';
+import { useWorkerMap } from '@/hooks/useWorkerMap';
 
 export function RecentTaskList() {
   const { data: tasks = [] } = useTasksQuery();
-  const { data: workers = [] } = useWorkersQuery();
+  const workerMap = useWorkerMap();
 
   const recentTasks = useMemo(
     () =>
@@ -31,7 +31,8 @@ export function RecentTaskList() {
       ) : (
         <ul className="divide-y dark:divide-gray-700">
           {recentTasks.map((task) => {
-            const worker = workers.find((w) => w.id === task.workerId);
+            const worker = workerMap.get(task.workerId);
+
             return (
               <li
                 key={task.id}
